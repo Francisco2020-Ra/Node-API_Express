@@ -23,6 +23,7 @@ Install my-project with npm
 ## Project Dependencies
 ```node
   npm i mongoose -S
+  npm i nodemon -g
 ```
 
 
