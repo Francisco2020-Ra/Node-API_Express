@@ -1,7 +1,7 @@
 
 # Project Title
 
-Node.js express
+Node.js Express
 
 
 ## Installation
@@ -9,7 +9,14 @@ Node.js express
 Install my-project with npm
 
 ```bash
-  npm install my-project
-  cd my-project
+  npm install 
 ```
-    
+## Project Dependencies
+```node
+  npm i mongoose -S
+```
+
+
+## Documentation
+
+[Mongoose](https://mongoosejs.com/docs/connections.html)
