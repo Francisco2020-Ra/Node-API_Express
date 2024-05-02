@@ -25,6 +25,8 @@ Install my-project with npm
   npm i mongoose -S
   npm i nodemon -g
   npm i express-validator --S
+  npm i jsonwebtoken -S
+  npm i bcryptjs -S
 ```
 
 
