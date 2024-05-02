@@ -24,6 +24,7 @@ Install my-project with npm
 ```node
   npm i mongoose -S
   npm i nodemon -g
+  npm i express-validator --S
 ```
 
 
