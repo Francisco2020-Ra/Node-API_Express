@@ -6,6 +6,7 @@ const app = express()
 
 app.use(cors())
 app.use(express.json())
+app.use(express.static("storage")) //indica desde donde debe sacar las imagenes
 
 const port = process.env.PORT || 3000
 /**
