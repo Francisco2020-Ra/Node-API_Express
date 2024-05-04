@@ -20,13 +20,25 @@ Install my-project with npm
 ```bash
   npm install 
 ```
+
+## Technologies Used
+
+- SQL Database (Example: SQL Server)
+- NoSQL Database (Example: MongoDB)
+
 ## Project Dependencies
 ```node
+  NoSQL
   npm i mongoose -S
+  SQL
+  npm i sequelize -S
+  npm i mysql2 -S
+
   npm i nodemon -g
   npm i express-validator --S
   npm i jsonwebtoken -S
   npm i bcryptjs -S
+
 ```
 
 
