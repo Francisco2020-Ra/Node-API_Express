@@ -11,7 +11,7 @@ const getItems = async (req, resp) =>{
 
     try{
         const user = req.user
-        const data = await tracksModel.find({});
+        const data = await tracksModel.findAllData({});
         resp.send({data, user})
     }catch(e){
         handleHttpError(resp, "Error_Get_Items")
@@ -27,9 +27,10 @@ const getItem = async (req, resp) =>{
         req = matchedData(req);
         const { id } = req;
 
-        const data = await tracksModel.findById(id)
+        const data = await tracksModel.findOneData(id)
         resp.send({data})
     } catch (error) {
+        console.log(error);
         handleHttpError(resp, "Error_Get_Item")
     }
 }

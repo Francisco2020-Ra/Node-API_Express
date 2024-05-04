@@ -10,25 +10,25 @@ const TracksScheme = new mongoose.Schema(
         },
         cover: {
             type: String,
-            validate:{
-                validator: (reg) =>{
+            validate: {
+                validator: (reg) => {
                     return true;
                 },
                 message: "ERROR_URL",
-            },            
+            },
         },
         artist: {
-           name: {
-            type:String,
-           },
-           nickname:{
-            type: String,
-           },
-           nationality:{
-            type: String,
-           },
+            name: {
+                type: String,
+            },
+            nickname: {
+                type: String,
+            },
+            nationality: {
+                type: String,
+            },
         },
-        duration:{
+        duration: {
             start: {
                 type: Number,
             },
@@ -36,7 +36,7 @@ const TracksScheme = new mongoose.Schema(
                 type: Number,
             },
         },
-        mediaId:{
+        mediaId: {
             type: mongoose.Types.ObjectId,
         },
     },
@@ -46,4 +46,48 @@ const TracksScheme = new mongoose.Schema(
     }
 );
 
+/**
+ * Implementar metodo propio con relacion a storage
+ */
+TracksScheme.statics.findAllData = function (name) {
+    const joinData = this.aggregate([//TODO: Tracks
+        {
+            $lookup:
+            {
+                from: "storages", //TODO: Tracks --> storages
+                localField: "mediaId",//TODO: Tracks.mediaId
+                foreignField: "_id",//TODO: Storages._id
+                as: "audio"//TODO: Alias:
+            }
+
+        },
+        {
+            $unwind: "$audio" // quita el array [] e indica una relación uno a uno
+        }]);
+    return joinData;
+};
+
+
+TracksScheme.statics.findOneData = function (id) {
+    const joinData = this.aggregate([//TODO: Tracks
+        {
+            $match: {
+                _id: new mongoose.Types.ObjectId(id)
+            },
+        },
+        {
+            $lookup:
+            {
+                from: "storages", //TODO: Tracks --> storages
+                localField: "mediaId",//TODO: Tracks.mediaId
+                foreignField: "_id",//TODO: Storages._id
+                as: "audio"//TODO: Alias:
+            }
+
+        },
+        {
+            $unwind: "$audio" // quita el array [] e indica una relación uno a uno
+        }]);
+    return joinData;
+};
 module.exports = mongoose.model("tracks", TracksScheme)
