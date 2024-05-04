@@ -47,3 +47,7 @@ Install my-project with npm
 [Mongoose](https://mongoosejs.com/docs/connections.html)
 
 [Sequelize](https://sequelize.org/api/v6/class/src/associations/base.js~association)
+
+## Diagram
+
+![Diagrama AppNode](https://github.com/Francisco2020-Ra/Node_API/assets/70178728/8a090082-c25a-465f-a11f-5442e8289b1c)
