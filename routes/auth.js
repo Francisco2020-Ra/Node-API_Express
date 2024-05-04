@@ -1,8 +1,8 @@
 const express = require("express")
 const router = express.Router();
-const { loginCtrl } = require("../controllers/auth")
+const { registerCtrl, loginCtrl } = require("../controllers/auth")
 
-const { validatorRegister } = require("../validators/auth");
+const { validatorRegister, validatorLogin } = require("../validators/auth");
 
 
 /**
@@ -10,7 +10,9 @@ const { validatorRegister } = require("../validators/auth");
  */
 //TODO: http://localhost:3001/api/auth/login
 //TODO: http://localhost:3001/api/auth/register
-router.post("/register", validatorRegister, loginCtrl);
+router.post("/register", validatorRegister, registerCtrl);
+
+router.post("/login", validatorLogin, loginCtrl);
 
 
 module.exports = router
