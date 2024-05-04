@@ -45,3 +45,5 @@ Install my-project with npm
 ## Documentation
 
 [Mongoose](https://mongoosejs.com/docs/connections.html)
+
+[Sequelize](https://sequelize.org/api/v6/class/src/associations/base.js~association)
