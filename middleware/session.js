@@ -1,7 +1,8 @@
-const { verify } = require("jsonwebtoken");
 const { handleHttpError } = require("../utils/handleError")
 const { verifyToken } = require("../utils/handleJwt")
-const { userModel} = require("../models")
+const { userModel} = require("../models/index")
+const { getPropertiesId, getPropertiesOneId }  = require("../utils/handlePropertiesEngine");
+const propertiesKeyId = getPropertiesId();
 const authMiddleware = async (req, res, next) => {
 
     try {
@@ -12,12 +13,20 @@ const authMiddleware = async (req, res, next) => {
         const token = req.headers.authorization.split(' ').pop();
         const dataToken = await verifyToken(token);
 
-        if(!dataToken._id){
+
+        if(!dataToken){
+            handleHttpError(res, "Not_Payload_Data", 401);
+            return
+        }
+
+        if(!dataToken[propertiesKeyId.id]){
             handleHttpError(res, "Error_Id_Token", 401);
             return
         }
 
-        const user = await userModel.findById(dataToken._id)
+        const query = getPropertiesOneId(propertiesKeyId.id, dataToken);
+        const user = await userModel.findOne(query);
+        
         req.user = user;
 
         next();

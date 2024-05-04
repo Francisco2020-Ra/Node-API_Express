@@ -1,8 +1,12 @@
 const { matchedData } = require("express-validator");
 const { tokenSign } = require("../utils/handleJwt")
 const { encrypt, compare } = require("../utils/handlePassword")
-const { userModel } = require("../models");
+const { userModel } = require("../models/index");
 const { handleHttpError } = require('../utils/handleError')
+const { getPropertiesOneEmail }  = require("../utils/handlePropertiesEngine");
+const ENGINE_DB = process.env.ENGINE_DB;
+
+
 
 /**
  * Este controlador es el encargado de registrar un usuario
@@ -36,8 +40,12 @@ const registerCtrl = async (req, res) => {
 const loginCtrl = async (req, res) => {
     try {
         req = matchedData(req)
-        const user = await userModel.findOne({ email:req.email })
-        .select('password name role email');
+        console.log(req.email);
+        const email = req.email;
+        const propertiesKeyEmail = getPropertiesOneEmail(email);
+        const user = (ENGINE_DB ==='nosql') ? await userModel.findOne(propertiesKeyEmail)
+        .select("password") : await userModel.findOne(propertiesKeyEmail);
+        console.log(user);
         if(!user){
             handleHttpError(res, "User_Not_Exists",404)
             return 
@@ -57,6 +65,7 @@ const loginCtrl = async (req, res) => {
 
         res.send({data});
     } catch (error) {
+        console.log(error);
         handleHttpError(res, "Error_Login_User")
     }
 }
